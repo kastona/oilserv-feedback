@@ -146,8 +146,8 @@ export default {
         "https://oilserv-feedback-backend.herokuapp.com/feedbacks",
         this.feedbackQuestions
       );
-
       this.loading = false;
+      this.$router.push('/thankyou')
     },
   },
   computed: {
