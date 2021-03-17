@@ -1,28 +1,52 @@
 <template>
-  <v-row>
+
+  <div>
+
+
+    <section class="welcome-background">
+
+      <v-container style="min-height: 50vh;" fluid fill-height>
+        <v-layout flex align-center justify-center>
+          <v-flex class="white--text text-center" xs12 md8 sm6>
+              <h2 class=" display-2 font-weight-bold mb-3">
+                Oilserv Feedback Platform</h2>
+
+              <v-responsive
+                 class="mx-auto title font-weight-light mb-4"
+                max-width="720"
+              >
+                You are completely anonymous, so don't hold back.
+              </v-responsive>
+
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </section>
+
+
+
+  <v-row class="mt-n12 mb-8">
     <v-col cols="12" md="8" offset-md="2">
-      <v-card>
-        <v-card-title class="text-center darken-1">
-          <span class="headline warning--text">Feedback</span>
-        </v-card-title>
-        <v-divider></v-divider>
+      <v-card elevation="20" class="pb-10">
+        
         <v-card-text>
-          <v-form ref="form" v-model="valid">
+          <v-form ref="form">
             <v-card
-              style="margin-bottom: 10px; padding: 20px"
               v-for="(fq, i) in feedbackQuestions"
               :key="i"
+              flat
             >
-              <v-card-title>{{ fq.question }}</v-card-title>
+              <v-card-title class="pb-0">{{ fq.question }}</v-card-title>
               <v-card-text style="margin-left: 20px">
                 <v-expansion-panels
+
                   flat
                   readonly
                   :value="fq.radioModel ? 0 : 1"
                   :hide-actions="true"
                 >
                   <v-expansion-panel>
-                    <v-expansion-panel-header>
+                    <v-expansion-panel-header class="py-0">
                       <v-radio-group v-model="fq.radioModel" row>
                         <v-radio :label="fq.yesLabel" :value="true"></v-radio>
                         <v-radio :label="fq.noLabel" :value="false"></v-radio>
@@ -42,15 +66,18 @@
                   </v-expansion-panel>
                 </v-expansion-panels>
               </v-card-text>
+              <v-divider></v-divider>
             </v-card>
           </v-form>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            :disabled="!answeredAtleastOne"
+            :disabled="!answeredAtleastOne || loading"
             @click="postFeedback"
             color="warning"
+            rounded
+            :loading="loading"
             >Submit Feedback</v-btn
           >
           <v-spacer></v-spacer>
@@ -58,6 +85,7 @@
       </v-card>
     </v-col>
   </v-row>
+  </div>
 </template>
 
 
@@ -67,6 +95,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
     dealtWithOilserv: false,
+    loading: false,
 
     feedbackQuestions: [
       {
@@ -97,7 +126,7 @@ export default {
       },
 
       {
-        question: "Do you have anymore comments or questions?",
+        question: "Do you have any more comments or questions?",
         radioModel: false,
         yesLabel: "Yes",
         noLabel: "No",
@@ -112,10 +141,13 @@ export default {
     ...mapActions({}),
 
     async postFeedback() {
+      this.loading = true;
       await this.$axios.post(
-        "http://localhost:4000/feedbacks",
+        "https://oilserv-feedback-backend.herokuapp.com/feedbacks",
         this.feedbackQuestions
       );
+
+      this.loading = false;
     },
   },
   computed: {
@@ -143,6 +175,14 @@ export default {
 </script>
 
 <style scoped>
+ .welcome-background {
+    background-image: linear-gradient(#fb8c00, #ad6103f6);
+    
+  }
+
+
+
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;

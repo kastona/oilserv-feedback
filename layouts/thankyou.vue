@@ -34,7 +34,7 @@
 
 
     
-    <v-main style="background-color: #f1f1ff;">
+    <v-main style="background-color: #fb8c00;">
         <nuxt />
     </v-main>
     <v-footer
@@ -60,3 +60,12 @@ export default {
   }
 }
 </script>
+
+
+<style scoped>
+ .background{
+    background-image: linear-gradient(#fb8c00, #ad6103f6);
+    
+  }
+
+</style>
