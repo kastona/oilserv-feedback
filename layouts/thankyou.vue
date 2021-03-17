@@ -4,7 +4,7 @@
 
 
     <v-app-bar
-      color="warning"
+      color="#c9c9c9"
       fixed
       dark
       app
@@ -34,12 +34,12 @@
 
 
     
-    <v-main style="background-color: #fb8c00;">
+    <v-main style="background-color: #c9c9c9;">
         <nuxt />
     </v-main>
     <v-footer
       :absolute="!fixed"
-      color="warning"
+      color="#c9c9c9"
       dark
       app
     >

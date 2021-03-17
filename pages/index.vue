@@ -119,7 +119,7 @@ export default {
       {
         question: "Kindly share a few things we could do better.",
         radioModel: false,
-        yesLabel: "I'll me share",
+        yesLabel: "Let me share",
         noLabel: "I'll pass",
         answerLabel: "Your comment",
         answer: "",
