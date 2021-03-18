@@ -136,14 +136,14 @@ export default {
     ],
   }),
   components: {},
-
+// "https://oilserv-feedback-backend.herokuapp.com/feedbacks"
   methods: {
     ...mapActions({}),
 
     async postFeedback() {
       this.loading = true;
       await this.$axios.post(
-        "https://oilserv-feedback-backend.herokuapp.com/feedbacks",
+        'http://localhost:4000/feedbacks',
         this.feedbackQuestions
       );
       this.loading = false;
